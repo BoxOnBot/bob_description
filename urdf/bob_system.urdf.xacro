@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- Basic differential drive mobile base -->
+<!--
+Copied and modified from ROS1 example -
+https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/diffbot_description/urdf/diffbot.xacro
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bob">
+  <xacro:arg name="use_gazebo" default="false" />
+
+  <!-- Enable setting arguments from the launch file -->
+  <xacro:arg name="use_fake_hardware" default="true" />
+  <xacro:arg name="fake_sensor_commands" default="false" />
+  <xacro:arg name="prefix" default="" />
+
+  <xacro:include filename="$(find bob_description)/urdf/bob.urdf.xacro" />
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find bob_description)/gazebo/bob.gazebo.xacro" />
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find bob_description)/gazebo/bob.materials.xacro" />
+
+  <!-- Import bob ros2_control description -->
+  <xacro:include filename="$(find bob_description)/ros2_control/bob_system.ros2_control.xacro" />
+
+  <xacro:summon_bob prefix="$(arg prefix)" />
+
+  <xacro:bob_gazebo prefix="$(arg prefix)" />
+
+  <xacro:bob_system
+    name="BobSystem" prefix="$(arg prefix)"
+    use_fake_hardware="$(arg use_fake_hardware)"
+    fake_sensor_commands="$(arg fake_sensor_commands)"/>
+
+</robot>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- Basic differential drive mobile base -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bob">
+  <xacro:arg name="prefix" default="" />
+
+  <xacro:include filename="$(find bob_description)/urdf/bob_description.urdf.xacro" />
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find bob_description)/gazebo/bob.materials.xacro" />
+
+  <!-- Import bob ros2_control description -->
+  <xacro:include filename="$(find bob_description)/ros2_control/bob.ros2_control.xacro" />
+
+  <xacro:summon_bob prefix="$(arg prefix)" />
+
+  <xacro:bob_ros2_control
+    name="bob" prefix="$(arg prefix)" />
+
+</robot>
