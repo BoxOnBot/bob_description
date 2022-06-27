@@ -2,17 +2,31 @@
 <!-- Basic differential drive mobile base -->
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bob">
   <xacro:arg name="prefix" default="" />
+  <xacro:arg name="simulated" default="true" />
 
   <xacro:include filename="$(find bob_description)/urdf/bob_description.urdf.xacro" />
-
-  <!-- Import bob ros2_control description -->
-  <xacro:include filename="$(find bob_description)/ros2_control/bob.ros2_control.xacro" />
 
   <!-- Call macro to summon bob -->
   <xacro:summon_bob prefix="$(arg prefix)" />
 
-  <!-- Call macro to intialise bob's controllers -->
-  <xacro:bob_ros2_control
-    name="bob" prefix="$(arg prefix)" />
+  <!-- If simulating in gazebo, load simulated hardware interfaces and joint state broadcasters -->
+  <xacro:if value="$(arg simulated)">
+    <xacro:include filename="$(find bob_description)/ros2_control/bob_gazebo.ros2_control.xacro" />
+    <xacro:bob_gazebo_ros2_control
+      name="bob" prefix="$(arg prefix)" />
+
+    <gazebo>
+      <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+        <parameters>$(find gazebo_ros2_control_demos)/config/diff_drive_controller.yaml</parameters>
+      </plugin>
+    </gazebo>
+  </xacro:if>
+
+  <!-- Else use the actual hardware interfaces (currently defaulted to a dummy one) -->
+  <xacro:unless value="$(arg simulated)">
+    <xacro:include filename="$(find bob_description)/ros2_control/bob.ros2_control.xacro" />
+    <xacro:bob_ros2_control
+      name="bob" prefix="$(arg prefix)" />
+  </xacro:unless>
 
 </robot>
