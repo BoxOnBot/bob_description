@@ -4,6 +4,7 @@
   <xacro:macro name="bob_ros2_control" params="name prefix">
 
     <ros2_control name="${name}" type="system">
+      <!-- Currently using demo hardware plugin, to be updated to an actual one -->
       <hardware>
         <plugin>ros2_control_demo_hardware/DiffBotSystemHardware</plugin>
         <param name="example_param_hw_start_duration_sec">0</param>

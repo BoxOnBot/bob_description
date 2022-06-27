@@ -5,14 +5,13 @@
 
   <xacro:include filename="$(find bob_description)/urdf/bob_description.urdf.xacro" />
 
-  <!-- Import Rviz colors -->
-  <xacro:include filename="$(find bob_description)/gazebo/bob.materials.xacro" />
-
   <!-- Import bob ros2_control description -->
   <xacro:include filename="$(find bob_description)/ros2_control/bob.ros2_control.xacro" />
 
+  <!-- Call macro to summon bob -->
   <xacro:summon_bob prefix="$(arg prefix)" />
 
+  <!-- Call macro to intialise bob's controllers -->
   <xacro:bob_ros2_control
     name="bob" prefix="$(arg prefix)" />
 

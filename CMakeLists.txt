@@ -4,7 +4,7 @@ project(bob_description)
 find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY config gazebo ros2_control urdf launch
+  DIRECTORY config ros2_control urdf launch
   DESTINATION share/${PROJECT_NAME}
 )
 
