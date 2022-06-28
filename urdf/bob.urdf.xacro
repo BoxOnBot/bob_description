@@ -17,7 +17,7 @@
 
     <gazebo>
       <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-        <parameters>$(find gazebo_ros2_control_demos)/config/diff_drive_controller.yaml</parameters>
+        <parameters>$(find bob_description)/config/bob_gazebo_controller.yaml</parameters>
       </plugin>
     </gazebo>
   </xacro:if>
