@@ -4,6 +4,9 @@
   <xacro:arg name="prefix" default="" />
   <xacro:arg name="simulated" default="true" />
 
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find bob_description)/gazebo/bob_materials.xacro" /> 
+
   <xacro:include filename="$(find bob_description)/urdf/bob_description.urdf.xacro" />
 
   <!-- Call macro to summon bob -->
