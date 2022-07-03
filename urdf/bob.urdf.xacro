@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <!-- Basic differential drive mobile base -->
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bob">
-  <xacro:arg name="prefix" default="" />
   <xacro:arg name="simulated" default="true" />
 
   <!-- Import Rviz colors -->
@@ -10,13 +9,13 @@
   <xacro:include filename="$(find bob_description)/urdf/bob_description.urdf.xacro" />
 
   <!-- Call macro to summon bob -->
-  <xacro:summon_bob prefix="$(arg prefix)" />
+  <xacro:summon_bob/>
 
   <!-- If simulating in gazebo, load simulated hardware interfaces and joint state broadcasters -->
   <xacro:if value="$(arg simulated)">
     <xacro:include filename="$(find bob_description)/ros2_control/bob_gazebo.ros2_control.xacro" />
     <xacro:bob_gazebo_ros2_control
-      name="bob" prefix="$(arg prefix)" />
+      name="bob_gazebo_control" />
 
     <gazebo>
       <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
@@ -25,11 +24,11 @@
     </gazebo>
   </xacro:if>
 
-  <!-- Else use the actual hardware interfaces (currently defaulted to a dummy one) -->
+  <!-- Else use the actual hardware interfaces -->
   <xacro:unless value="$(arg simulated)">
-    <xacro:include filename="$(find bob_description)/ros2_control/bob.ros2_control.xacro" />
+    <xacro:include filename="$(find bob_description)/ros2_control/bob_odrive_ros2_control.xacro" />
     <xacro:bob_ros2_control
-      name="bob" prefix="$(arg prefix)" />
+      name="bob_control" />
   </xacro:unless>
 
 </robot>

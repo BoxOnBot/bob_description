@@ -38,20 +38,10 @@ def generate_launch_description():
             description="URDF/XACRO description file with the robot.",
         )
     )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "prefix",
-            default_value='""',
-            description="Prefix of the joint names, useful for \
-        multi-robot setup. If changed than also joint names in the controllers' configuration \
-        have to be updated.",
-        )
-    )
 
     # Initialize Arguments
     description_package = LaunchConfiguration("description_package")
     description_file = LaunchConfiguration("description_file")
-    prefix = LaunchConfiguration("prefix")
 
     # Get URDF via xacro
     robot_description_content = Command(
@@ -61,9 +51,6 @@ def generate_launch_description():
             PathJoinSubstitution(
                 [FindPackageShare(description_package), "urdf", description_file]
             ),
-            " ",
-            "prefix:=",
-            prefix,
         ]
     )
     robot_description = {"robot_description": robot_description_content}
