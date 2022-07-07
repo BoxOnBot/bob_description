@@ -1,33 +1,46 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="bob_ros2_control" params="name">
+	<xacro:macro name="bob_ros2_control" params="name">
 
-    <ros2_control name="${name}" type="system">
-      <hardware>
-        <plugin>odrive_hardware_interface/ODriveHardwareInterface</plugin>
-      </hardware>
+		<ros2_control name="${name}" type="system">
+			<hardware>
+				<plugin>odrive_hardware_interface/ODriveHardwareInterface</plugin>
+			</hardware>
 
-      <sensor name="odrv0">
-        <param name="serial_number">000000000000</param>
-      </sensor>
+			<sensor name="odrv0">
+				<param name="serial_number">000000000000</param>
+			</sensor>
 
-      <joint name="left_wheel_joint">
-          <param name="serial_number">000000000000</param>
-          <param name="axis">0</param>
-          <param name="enable_watchdog">1</param>
-          <param name="watchdog_timeout">0.1</param>
-      </joint>
+			<joint name="left_wheel_joint">
+				<param name="serial_number">000000000000</param>
+				<param name="axis">0</param>
+				<param name="enable_watchdog">1</param>
+				<param name="watchdog_timeout">0.1</param>
+			</joint>
 
-      <joint name="right_wheel_joint">
-          <param name="serial_number">000000000000</param>
-          <param name="axis">1</param>
-          <param name="enable_watchdog">1</param>
-          <param name="watchdog_timeout">0.1</param>
-      </joint>
+			<joint name="right_wheel_joint">
+				<param name="serial_number">000000000000</param>
+				<param name="axis">1</param>
+				<param name="enable_watchdog">1</param>
+				<param name="watchdog_timeout">0.1</param>
+			</joint>
 
-    </ros2_control>
+			<transmission name="left_wheel_transmission">
+				<plugin>transmission_interface/SimpleTransmission</plugin>
+				<joint name="left_wheel_joint" role="left_wheel_joint">
+					<mechanical_reduction>5</mechanical_reduction>
+				</joint>
+			</transmission>
+			<transmission name="right_wheel_transmission">
+				<plugin>transmission_interface/SimpleTransmission</plugin>
+				<joint name="right_wheel_joint" role="right_wheel_joint">
+					<mechanical_reduction>5</mechanical_reduction>
+				</joint>
+			</transmission>
+			
+		</ros2_control>
 
-  </xacro:macro>
+	</xacro:macro>
 
 </robot>
