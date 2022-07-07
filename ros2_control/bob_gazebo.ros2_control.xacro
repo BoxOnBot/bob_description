@@ -23,6 +23,18 @@
             <state_interface name="position"/>
             <state_interface name="velocity"/>
         </joint>
+        <transmission name="left_wheel_transmission">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="left_wheel_joint" role="left_wheel_joint">
+                <mechanical_reduction>5</mechanical_reduction>
+            </joint>
+        </transmission>
+        <transmission name="right_wheel_transmission">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="right_wheel_joint" role="right_wheel_joint">
+                <mechanical_reduction>5</mechanical_reduction>
+            </joint>
+        </transmission>
     </ros2_control>
 
   </xacro:macro>
