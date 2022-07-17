@@ -13,7 +13,7 @@
 
   <!-- If simulating in gazebo, load simulated hardware interfaces and joint state broadcasters -->
   <xacro:if value="$(arg simulated)">
-    <xacro:include filename="$(find bob_description)/ros2_control/bob_gazebo.ros2_control.xacro" />
+    <xacro:include filename="$(find bob_description)/ros2_control/bob_gazebo_ros2_control.xacro" />
     <xacro:bob_gazebo_ros2_control
       name="bob_gazebo_control" />
 
