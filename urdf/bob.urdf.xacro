@@ -11,11 +11,13 @@
   <!-- Call macro to summon bob -->
   <xacro:summon_bob/>
 
-  <!-- If simulating in gazebo, load simulated hardware interfaces and joint state broadcasters -->
+  <!-- If simulating in gazebo, load simulated hardware interfaces, senso and joint state broadcasters -->
   <xacro:if value="$(arg simulated)">
     <xacro:include filename="$(find bob_description)/ros2_control/bob_gazebo_ros2_control.xacro" />
-    <xacro:bob_gazebo_ros2_control
-      name="bob_gazebo_control" />
+    <xacro:include filename="$(find bob_description)/gazebo/bob_gazebo_sensors.xacro" />
+
+    <xacro:bob_gazebo_ros2_control name="bob_gazebo_control" />
+    <xacro:bob_gazebo_sensors />
 
     <gazebo>
       <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
