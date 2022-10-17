@@ -3,10 +3,10 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bob">
   <xacro:arg name="simulated" default="true" />
 
-  <!-- Import Rviz colors -->
+  <!-- Import xacro files -->
   <xacro:include filename="$(find bob_description)/gazebo/bob_materials.xacro" /> 
-
   <xacro:include filename="$(find bob_description)/urdf/bob_description.urdf.xacro" />
+  <xacro:include filename="$(find bob_description)/sensors/intel_d435.xacro" />
 
   <!-- Call macro to summon bob -->
   <xacro:summon_bob/>
@@ -14,10 +14,10 @@
   <!-- If simulating in gazebo, load simulated hardware interfaces, senso and joint state broadcasters -->
   <xacro:if value="$(arg simulated)">
     <xacro:include filename="$(find bob_description)/ros2_control/bob_gazebo_ros2_control.xacro" />
-    <xacro:include filename="$(find bob_description)/gazebo/bob_gazebo_sensors.xacro" />
+    <xacro:include filename="$(find bob_description)/gazebo/bob_gazebo_imu.xacro" />
 
     <xacro:bob_gazebo_ros2_control name="bob_gazebo_control" />
-    <xacro:bob_gazebo_sensors />
+    <xacro:bob_gazebo_imu />
 
     <gazebo>
       <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
@@ -32,5 +32,11 @@
     <xacro:bob_ros2_control
       name="bob_control" />
   </xacro:unless>
+
+  <!-- Slap in the intel d435-->
+  <!-- <xacro:intel_d435 parent="base_link">
+     <origin xyz="0.35 0 0.3" />   
+  </xacro:intel_d435> -->
+  <!--  NOTE set to pose param from model.sdf -->
 
 </robot>

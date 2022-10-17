@@ -4,7 +4,7 @@ project(bob_description)
 find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY config ros2_control urdf launch rviz gazebo
+  DIRECTORY config ros2_control urdf launch rviz gazebo sensors meshes
   DESTINATION share/${PROJECT_NAME}
 )
 
